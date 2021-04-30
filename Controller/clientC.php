@@ -1,7 +1,8 @@
 
  <?php
-require_once $_SERVER['DOCUMENT_ROOT']."\projet\config.php";
-class clientC
+ include 'config.php';
+
+ class clientC
  {
 	function ajouterclient($client)
 	{
@@ -156,6 +157,17 @@ function modifierclient($id,$nom,$prenom,$username,$adresse,$tel,$email,$passwor
         }
     }
 
+
+  	public static function checklogin($username,$password)
+  	{
+  		$db = config::getConnexion();
+  		$req = $db->prepare('SELECT * FROM client WHERE username=:username AND password=:password');
+  		$req->bindParam(':username',$username);
+  		$req->bindParam(':password',$password);
+  		$req->execute();
+  		$resultat=$req->fetch();
+  		return $resultat;
+  	}
 
 }
 ?>

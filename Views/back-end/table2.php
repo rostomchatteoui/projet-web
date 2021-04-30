@@ -1,6 +1,8 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'\projet\core\clientC.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'\projet\entities\client.php';
+
+include '../../Controller/clientC.php';
+include '../../Model/client.php';
+
 $client1C=new clientC();
 
 if (isset($_POST['Asc'])){
@@ -114,8 +116,8 @@ session_start();
                                 <i class="fas fa-chart-bar"></i>Charts</a>
                         </li>
                         <li>
-                            <a href="table.php">
-                                <i class="fas fa-table"></i>Tables</a>
+                            <a href="table2.php">
+                                <i class="fas fa-table"></i>Liste des utilisateurs</a>
                         </li>
                         <li>
                             <a href="form.html">
@@ -155,51 +157,20 @@ session_start();
         <aside class="menu-sidebar d-none d-lg-block nf">
             <div class="logo nf">
                 <a href="#">
-                    <img src="images/icon/logo.jpg" alt="Cool Admin" />
+                    <img src="images/icon/logo.png" alt="Cool Admin" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li class="has-sub">
-                            <a href="index.html">
+                            <a href="table2.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
 
                         </li>
-                        <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
-                        </li>
                         <li class="active">
-                            <a href="table.php">
-                                <i class="fas fa-table"></i>Tables</a>
-                        </li>
-                        <li >
-                            <a href="form.html">
-                                <i class="far fa-check-square"></i>Forms</a>
-                        </li>
-                        <li>
-                            <a href="calendar.html">
-                                <i class="fas fa-calendar-alt"></i>Calendar</a>
-                        </li>
-                         <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Mailbox</a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Pages</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="login.html">Login</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Register</a>
-                                </li>
-                                <li>
-                                    <a href="forget-pass.html">Forget Password</a>
-                                </li>
-                            </ul>
+                            <a href="table2.php">
+                                <i class="fas fa-table"></i>Liste des utilisateurs</a>
                         </li>
 
                     </ul>
@@ -371,7 +342,7 @@ session_start();
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href='../logout.php'><span class="glyphicon">Se Déconnecter <i class="glyphicon glyphicon-log-out" ></i></span></a>
+                                                <a href='../logout.php'><span class="glyphicon">Sign out <i class="glyphicon glyphicon-log-out" ></i></span></a>
                                             </div>
                                         </div>
                                     </div>
@@ -421,8 +392,8 @@ session_start();
                                                 <th>email</th>
                                                 <th>Username</th>
                                                 <th>date</th>
-                                                <th>adresse</th>
-                                                <th>Telephone</th>
+                                                <th>address</th>
+                                                <th>Phone </th>
                                                 <th></th>
                                             </tr>
                                         </thead>

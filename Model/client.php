@@ -1,5 +1,5 @@
 <?PHP
-require_once $_SERVER['DOCUMENT_ROOT']."\projet\config.php";
+
 class client{
 	private $id;
 	private $nom;
@@ -86,31 +86,6 @@ class client{
 	}
 	function setrole($role){
 		$this->role=$role;
-	}
-	public static function checklogin($username,$password)
-	{
-		$db = config::getConnexion();
-		$req = $db->prepare('SELECT * FROM client WHERE username=:username AND password=:password');
-		$req->bindParam(':username',$username);
-		$req->bindParam(':password',$password);
-		$req->execute();
-		$resultat=$req->fetch();
-		return $resultat;
-	}
-	function afficherclient()
-	{
-		//$sql="SElECT * From client inner join formationphp.client a on e.id= a.id";
-		$sql="SElECT * From client";
-		$db = config::getConnexion();
-		try
-		{
-		$liste=$db->query($sql);
-		return $liste;
-		}
-        catch (Exception $e)
-        {
-            die('Erreur: '.$e->getMessage());
-        }
 	}
 
 }

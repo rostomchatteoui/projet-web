@@ -1,6 +1,6 @@
 <?PHP
-require_once $_SERVER['DOCUMENT_ROOT'].'\projet\core\clientC.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'\projet\entities\client.php';
+include '../Controller/clientC.php';
+include '../Model/client.php';
 
 
 if (isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['email']) and isset($_POST['username']) and isset($_POST['adresse']) and isset($_POST['tel']) and isset($_POST['password']))

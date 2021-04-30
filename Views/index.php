@@ -6,7 +6,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 
 <?php
-include 'core/clientC.php';
+include '../Controller/clientC.php';
 session_start();
 $CC = new clientC();
 $usernames = $CC->afficherUsernames();
@@ -69,7 +69,7 @@ $usernames = $CC->afficherUsernames();
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Connecte-toi</h4>
+					<h4 class="modal-title" id="myModalLabel">Sign In</h4>
 				</div>
 				<div class="modal-body modal-body-sub">
 					<div class="row">
@@ -77,8 +77,8 @@ $usernames = $CC->afficherUsernames();
 							<div class="sap_tabs">
 								<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
 									<ul>
-										<li class="resp-tab-item" aria-controls="tab_item-0"><span>Se Connecter</span></li>
-										<li class="resp-tab-item" aria-controls="tab_item-1"><span>Creer un compte</span></li>
+										<li class="resp-tab-item" aria-controls="tab_item-0"><span>Sign in</span></li>
+										<li class="resp-tab-item" aria-controls="tab_item-1"><span>Create account</span></li>
 									</ul>
 									<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
 										<div class="facts">
@@ -101,8 +101,8 @@ $usernames = $CC->afficherUsernames();
 													<input placeholder="Nom" name="nom" id="nom" type="text" required pattern="[A-Za-z]{1,30}" title="Le nom ne peut comprendre que des lettres" >
 													<input placeholder="Prenom" name="prenom" id="prenom" type="text" required pattern="[A-Za-z]{1,30}" title="Le nom ne peut comprendre que des lettres">
 													<input placeholder="Username" name="username" id="username"type="text" required  oninput="checkUsername()">
-													<input placeholder="adresse" name="adresse" id="adresse" type="text" required>
-													<input placeholder="telephone" name="tel" id="tel" type="text" required>
+													<input placeholder="address" name="adresse" id="adresse" type="text" required>
+													<input placeholder="Phone number" name="tel" id="tel" type="text" required>
 													<input placeholder="Email Address" name="email" id="email" type="email" required title="Votre email doit correspondre à ce format exemple@exemple.com">
 													<input placeholder="Password" name="password" id="password2" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Doit contenir au moins un chiffre et une lettre majuscule et minuscule, et au moins 8 caractères ou plus" required >
 													<input placeholder="Confirm Password" name="confirm_password" id="confirm_password" type="password" oninput="check(this)"  required>
@@ -173,7 +173,7 @@ $usernames = $CC->afficherUsernames();
         <?php } else
         {
         ?>
-            <a href='logout.php' style="width:150px;"><span class="glyphicon">Se Déconnecter <i class="glyphicon glyphicon-log-out" ></i></span></a>
+            <a href='logout.php' style="width:150px;"><span class="glyphicon">Sign out <i class="glyphicon glyphicon-log-out" ></i></span></a>
         <?php
             if($_SESSION['role'] == "admin"){
           ?>
@@ -187,7 +187,7 @@ $usernames = $CC->afficherUsernames();
       </div>
 
 			<div class="w3l_logo">
-				<h1><a href="index.html"><center><img src="images/hightech.png"></center><span>Your stores. Your place.</span></a></h1>
+				<h1><a href="index.php"><center><img src="images/hightech.png"></center><span>Your store. Your place.</span></a></h1>
 			</div>
 			<div class="search">
 				<input class="search_box" type="checkbox" id="search_box">

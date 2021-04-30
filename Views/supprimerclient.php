@@ -1,6 +1,6 @@
 <?PHP
-require_once $_SERVER['DOCUMENT_ROOT'].'\projet\core\clientC.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'\projet\entities\client.php';
+include '../Controller/clientC.php';
+include '../Model/client.php';
 // var_dump($_POST);
 if (isset($_POST['idsup'])) {
 	// echo "1";

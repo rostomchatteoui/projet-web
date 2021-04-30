@@ -1,13 +1,10 @@
 <?PHP
-require_once $_SERVER['DOCUMENT_ROOT'].'\projet\entities\client.php';
-if ($_GET['action']=="out") {
-	session_start();
-session_destroy();
-header("Location:index.php");
+include '../Controller/clientC.php';
 
-}
-else{
-	$user=client::checklogin($_POST['username'],$_POST['password']);
+if (isset($_POST['username']) and isset($_POST['password'])) {
+
+	$clientC = new clientC();
+	$user=$clientC->checklogin($_POST['username'],$_POST['password']);
 	if($user)
 	{
 		session_start();
@@ -21,18 +18,20 @@ else{
 		$_SESSION['tel']=$user['tel'];
 		$_SESSION['password']=$user['password'];
 		$_SESSION['role']=$user['role'];
-		
+
 		header("Location:index.php");
 	}
 	else {
 		echo "<script>
-alert('Verifiez vos données');
+alert('Verifiez vos données!');
 window.location.href='index.php';
 </script>";
 	}
 }
-
-
-
-
+else {
+	echo "<script>
+alert('champs vides.');
+window.location.href='index.php';
+</script>";
+}
 ?>

@@ -1,7 +1,8 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'].'\projet\core\clientC.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'\projet\entities\client.php';
+include '../Controller/clientC.php';
+include '../Model/client.php';
+
 $CC = new clientC();
 $usernames = $CC->afficherUsernames();
 
@@ -178,7 +179,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         ?>
       </div>
 			<div class="w3l_logo">
-				<h1><a href="index.html"><center><img src="images/hightech.png"></center><span>Your stores. Your place.</span></a></h1>
+				<h1><a href="index.html"><center><img src="images/hightech.png"></center><span>Your store. Your place.</span></a></h1>
 			</div>
 			<div class="search">
 				<input class="search_box" type="checkbox" id="search_box">
@@ -402,7 +403,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<p>you can reach us through this also .</p>
 					<ul class="address">
 						<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>23 Avenue habib chaker, <span>Mourouj 3.</span></li>
-						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">High-Tech-Info@gmail.com</a></li>
+						<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:info@example.com">careoffuture@gmail.com</a></li>
 						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+216 54 567 567</li>
 					</ul>
 				</div>

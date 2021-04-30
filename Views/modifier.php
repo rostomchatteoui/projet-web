@@ -1,6 +1,6 @@
 <?php
-  require_once $_SERVER['DOCUMENT_ROOT'].'\projet\core\clientC.php';
-  require_once $_SERVER['DOCUMENT_ROOT'].'\projet\entities\client.php';
+include '../Controller/clientC.php';
+include '../Model/client.php';
 
   $id=$_POST['id'];
   //récupération des valeurs des champs:
