@@ -70,9 +70,9 @@ class clientC
         {
           $liste=$db->query($sql);
           $res = $liste->fetchAll(PDO::FETCH_COLUMN, 0);
-          return $res;
-          }
-
+          $resultat = json_encode($res);
+          return $resultat;
+        }
         catch (Exception $e)
         {
           die('Erreur: '.$e->getMessage());
@@ -122,8 +122,19 @@ function modifierclient($id,$nom,$prenom,$username,$adresse,$tel,$email,$passwor
         }
 
 	}
-  function trier(){
+  function trierD(){
 		$sql="SELECT * from client order by date_crea desc";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+  function trierA(){
+		$sql="SELECT * from client order by date_crea asc";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);

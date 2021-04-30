@@ -21,6 +21,7 @@ else{
 		$_SESSION['tel']=$user['tel'];
 		$_SESSION['password']=$user['password'];
 		$_SESSION['role']=$user['role'];
+		
 		header("Location:index.php");
 	}
 	else {

@@ -4,10 +4,13 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
-<?php
-session_start();
- ?>
 
+<?php
+include 'core/clientC.php';
+session_start();
+$CC = new clientC();
+$usernames = $CC->afficherUsernames();
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +62,6 @@ session_start();
 	<!-- //for bootstrap working -->
 	<!-- header modal -->
 
-
 	<div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -82,7 +84,7 @@ session_start();
 										<div class="facts">
 											<div class="register">
 												<form action="clientlog.php" method="post">
-													<input name="username" id="username" placeholder="username" type="text" >
+													<input name="username" id="username1" placeholder="username" type="text" >
 													<input name="password" id="password" placeholder="password" type="password">
 													<div class="sign-up">
 														<input type="submit" value="Sign in" onclick="return verif1()" />
@@ -98,7 +100,7 @@ session_start();
 												<form name="myForm" id="myForm" action="ajoutclient.php" method="post">
 													<input placeholder="Nom" name="nom" id="nom" type="text" required pattern="[A-Za-z]{1,30}" title="Le nom ne peut comprendre que des lettres" >
 													<input placeholder="Prenom" name="prenom" id="prenom" type="text" required pattern="[A-Za-z]{1,30}" title="Le nom ne peut comprendre que des lettres">
-													<input placeholder="Username" name="username" id="username"type="text" required >
+													<input placeholder="Username" name="username" id="username"type="text" required  oninput="checkUsername()">
 													<input placeholder="adresse" name="adresse" id="adresse" type="text" required>
 													<input placeholder="telephone" name="tel" id="tel" type="text" required>
 													<input placeholder="Email Address" name="email" id="email" type="email" required title="Votre email doit correspondre à ce format exemple@exemple.com">
@@ -115,12 +117,26 @@ session_start();
                                     }
                                 }
                             </script>
+
+                            <script type="text/javascript">
+                              var names = <?php echo $usernames ?>;
+                              function checkUsername()
+                              {
+                                var input = document.getElementById("username");
+                                if (names.indexOf(input.value) > -1 )
+                                {
+                                  input.setCustomValidity("nom d'utilisateur déja pris, choisissez un autre.");
+                                }
+                                else{
+                                  input.setCustomValidity('')
+                                }
+                              }
+                            </script>
 													<div class="sign-up">
                             <input id="reg_btn" type="submit" value="Create Account"/>
 
 													</div>
 												</form>
-
 											</div>
 										</div>
 									</div>
@@ -136,43 +152,12 @@ session_start();
 									});
 								});
 							</script>
-							<div id="OR" class="hidden-xs">OR</div>
-						</div>
-						<div class="col-md-4 modal_body_right modal_body_right1">
-							<div class="row text-center sign-with">
-								<div class="col-md-12">
-									<h3 class="other-nw">Sign in with</h3>
-								</div>
-								<div class="col-md-12">
-									<ul class="social">
-										<li class="social_facebook"><a href="#" class="entypo-facebook"></a></li>
-										<li class="social_dribbble"><a href="#" class="entypo-dribbble"></a></li>
-										<li class="social_twitter"><a href="#" class="entypo-twitter"></a></li>
-										<li class="social_behance"><a href="#" class="entypo-behance"></a></li>
-									</ul>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-  <?php if(!isset($_SESSION['id'])){ ?>
-  <script>
-    $('#myModal88').modal('show');
-  </script>
-  <?php } ?>
-  <?php if (isset($_SESSION['id']))
-  {
-
-  ?>
-      <a href="logout.php">
-      <button  class="w3ls-cart" style="margin-left: 1300px">Se Deconnecter</button>
-      </a>
-    <?php
-   }
-  ?>
 
   <!-- header modal -->
   <!-- header -->
@@ -182,24 +167,24 @@ session_start();
 
       <div class="w3l_login">
         <?php if(!isset($_SESSION['id'])){ ?>
-        <a href="#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-
-
-
-        <?php } else{
-if ($_SESSION['role']=='admin') {
-
-    ?>
-    <a href="clientlog.php?action=out"><span class="glyphicon glyphicon-log-in" ></span></a>
-<?php } ?>
-    <a href="../back-end/index.html"><span class="glyphicon glyphicon-stats" ></span></a>
-
-  <?php
-  }
-  ?>
-
-			</div>
-
+          <script>
+            $('#myModal88').modal('show');
+          </script>
+        <?php } else
+        {
+        ?>
+            <a href='logout.php' style="width:150px;"><span class="glyphicon">Se Déconnecter <i class="glyphicon glyphicon-log-out" ></i></span></a>
+        <?php
+            if($_SESSION['role'] == "admin"){
+          ?>
+              <a href="back-end/table2.php" style="width:150px;"><span class="glyphicon">Dashboard Admin <i class="glyphicon glyphicon-tasks" ></i></span></a>
+        <?php
+            }
+         ?>
+         <?php
+         }
+        ?>
+      </div>
 
 			<div class="w3l_logo">
 				<h1><a href="index.html"><center><img src="images/hightech.png"></center><span>Your stores. Your place.</span></a></h1>
@@ -290,10 +275,15 @@ if ($_SESSION['role']=='admin') {
 							</ul>
 						</li>
 						<li><a href="mail.php">Mail Us</a></li>
-						<li><a href="profile.php">Profile</a></li>
-
+            <?php if (isset($_SESSION['id']))
+            {
+            ?>
+                <li><a href="profile.php">Profile</a></li>
+              <?php
+             }
+            ?>
 					</ul>
-				</div>
+          </div>
 			</nav>
 		</div>
 	</div>

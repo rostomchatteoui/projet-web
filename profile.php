@@ -2,6 +2,9 @@
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'].'\projet\core\clientC.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'\projet\entities\client.php';
+$CC = new clientC();
+$usernames = $CC->afficherUsernames();
+
 ?>
 
 <!--
@@ -60,7 +63,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Don't Wait, Login now!</h4>
+					<h4 class="modal-title" id="myModalLabel">Connecte-toi</h4>
 				</div>
 				<div class="modal-body modal-body-sub">
 					<div class="row">
@@ -68,17 +71,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<div class="sap_tabs">
 								<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
 									<ul>
-										<li class="resp-tab-item" aria-controls="tab_item-0"><span>Sign in</span></li>
-										<li class="resp-tab-item" aria-controls="tab_item-1"><span>Sign up</span></li>
+										<li class="resp-tab-item" aria-controls="tab_item-0"><span>Se Connecter</span></li>
+										<li class="resp-tab-item" aria-controls="tab_item-1"><span>Creer un compte</span></li>
 									</ul>
 									<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
 										<div class="facts">
 											<div class="register">
-												<form action="#" method="post">
-													<input name="Email" placeholder="Email Address" type="text" required="">
-													<input name="Password" placeholder="Password" type="password" required="">
+												<form action="clientlog.php" method="post">
+													<input name="username" id="username1" placeholder="username" type="text" >
+													<input name="password" id="password" placeholder="password" type="password">
 													<div class="sign-up">
-														<input type="submit" value="Sign in"/>
+														<input type="submit" value="Sign in" onclick="return verif1()" />
 													</div>
 												</form>
 											</div>
@@ -87,13 +90,45 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
 										<div class="facts">
 											<div class="register">
-												<form action="#" method="post">
-													<input placeholder="Name" name="Name" type="text" required="">
-													<input placeholder="Email Address" name="Email" type="email" required="">
-													<input placeholder="Password" name="Password" type="password" required="">
-													<input placeholder="Confirm Password" name="Password" type="password" required="">
+
+												<form name="myForm" id="myForm" action="ajoutclient.php" method="post">
+													<input placeholder="Nom" name="nom" id="nom" type="text" required pattern="[A-Za-z]{1,30}" title="Le nom ne peut comprendre que des lettres" >
+													<input placeholder="Prenom" name="prenom" id="prenom" type="text" required pattern="[A-Za-z]{1,30}" title="Le nom ne peut comprendre que des lettres">
+													<input placeholder="Username" name="username" id="username"type="text" required  oninput="checkUsername()">
+													<input placeholder="adresse" name="adresse" id="adresse" type="text" required>
+													<input placeholder="telephone" name="tel" id="tel" type="text" required>
+													<input placeholder="Email Address" name="email" id="email" type="email" required title="Votre email doit correspondre à ce format exemple@exemple.com">
+													<input placeholder="Password" name="password" id="password2" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Doit contenir au moins un chiffre et une lettre majuscule et minuscule, et au moins 8 caractères ou plus" required >
+													<input placeholder="Confirm Password" name="confirm_password" id="confirm_password" type="password" oninput="check(this)"  required>
+
+                            <script language='javascript' type='text/javascript'>
+                                function check(input) {
+                                    if (document.getElementById('confirm_password').value != document.getElementById('password2').value) {
+                                        input.setCustomValidity('Verifiez votre mot de passe.');
+                                    } else {
+                                        // input is valid -- reset the error message
+                                        input.setCustomValidity('');
+                                    }
+                                }
+                            </script>
+
+                            <script type="text/javascript">
+                              var names = <?php echo $usernames ?>;
+                              function checkUsername()
+                              {
+                                var input = document.getElementById("username");
+                                if (names.indexOf(input.value) > -1 )
+                                {
+                                  input.setCustomValidity("nom d'utilisateur déja pris, choisissez un autre.");
+                                }
+                                else{
+                                  input.setCustomValidity('')
+                                }
+                              }
+                            </script>
 													<div class="sign-up">
-														<input type="submit" value="Create Account"/>
+                            <input id="reg_btn" type="submit" value="Create Account"/>
+
 													</div>
 												</form>
 											</div>
@@ -111,61 +146,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									});
 								});
 							</script>
-							<div id="OR" class="hidden-xs">OR</div>
-						</div>
-						<div class="col-md-4 modal_body_right modal_body_right1">
-							<div class="row text-center sign-with">
-								<div class="col-md-12">
-									<h3 class="other-nw">Sign in with</h3>
-								</div>
-								<div class="col-md-12">
-									<ul class="social">
-										<li class="social_facebook"><a href="#" class="entypo-facebook"></a></li>
-										<li class="social_dribbble"><a href="#" class="entypo-dribbble"></a></li>
-										<li class="social_twitter"><a href="#" class="entypo-twitter"></a></li>
-										<li class="social_behance"><a href="#" class="entypo-behance"></a></li>
-									</ul>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<?php if(!isset($_SESSION['id'])){ ?>
-	<script>
-		$('#myModal88').modal('show');
-	</script>
-	<?php } ?>
 
 	<!-- header modal -->
 	<!-- header -->
 	<div class="header" id="home1">
 		<div class="container">
-
-
 			<div class="w3l_login">
-				<?php if(!isset($_SESSION['id'])){ ?>
-				<a href="#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-
-
-				<?php } else{
-if ($_SESSION['role']=='admin') {
-
-		?>
-		<a href="clientlog.php?action=out"><span class="glyphicon glyphicon-log-in" ></span></a>
-<?php } ?>
-		<a href="../back-end/index.html"><span class="glyphicon glyphicon-stats" ></span></a>
-
-	<?php
-	}
-	?>
-
-	 </div>
-
-
-
+        <?php if(!isset($_SESSION['id'])){ ?>
+          <script>
+            $('#myModal88').modal('show');
+          </script>
+        <?php } else
+        {
+        ?>
+            <a href='logout.php' style="width:150px;"><span class="glyphicon">Se Déconnecter <i class="glyphicon glyphicon-log-out" ></i></span></a>
+        <?php
+            if($_SESSION['role'] == "admin"){
+          ?>
+              <a href="back-end/table2.php" style="width:150px;"><span class="glyphicon">Dashboard Admin <i class="glyphicon glyphicon-tasks" ></i></span></a>
+        <?php
+            }
+         ?>
+         <?php
+         }
+        ?>
+      </div>
 			<div class="w3l_logo">
 				<h1><a href="index.html"><center><img src="images/hightech.png"></center><span>Your stores. Your place.</span></a></h1>
 			</div>
