@@ -1,23 +1,23 @@
 <?php
 
-include '../../Controller/clientC.php';
-include '../../Model/client.php';
+include '../../Controller/animalC.php';
+include '../../Model/animal.php';
 
-$client1C=new clientC();
+$animalC=new animalC();
 
 if (isset($_POST['Asc'])){
-  $listeclient=$client1C->trierA();
+  $listeA=$animalC->trierA();
 }
 elseif (isset($_POST['Desc'])) {
-  $listeclient=$client1C->trierD();
+  $listeA=$animalC->trierD();
 }
 elseif(isset($_POST['search']))
-{$lC=new clientC();
+{
     $keywords = $_POST['keywords'];
-    $listeclient=$lC-> getAllclients($keywords);
+    $listeA=$animalC-> getAllAnimals($keywords);
 }
 else {
-  $listeclient=$client1C->afficherclient();
+  $listeA=$animalC->afficherAnimal();
 }
 session_start();
 
@@ -99,18 +99,31 @@ if (isset($_SESSION['id']))
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
-                            <a href="table2.php">
+                            <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                <li>
+                                    <a href="table2.php">Dashboard 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Dashboard 2</a>
+                                </li>
+                                <li>
+                                    <a href="#">Dashboard 3</a>
+                                </li>
+                                <li>
+                                    <a href="#">Dashboard 4</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="table2.php">
                                 <i class="fas fa-table"></i>Liste des utilisateurs</a>
                         </li>
-                    <li>
-                        <a href="Animals.php">
-                            <i class="fas fa-table"></i>Liste des animaux</a>
-                    </li>
-
+                        <li>
+                            <a href="Animals.php">
+                                <i class="fas fa-table"></i>Liste des animaux</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -132,15 +145,14 @@ if (isset($_SESSION['id']))
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
 
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="table2.php">
                                 <i class="fas fa-table"></i>Liste des utilisateurs</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="Animals.php">
                                 <i class="fas fa-table"></i>Liste des animaux</a>
                         </li>
-
                     </ul>
                 </nav>
             </div>
@@ -356,18 +368,16 @@ if (isset($_SESSION['id']))
                                                         <span class="au-checkmark"></span>
                                                     </label>
                                                 </th>
-                                                <th>ID - Nom Prenom</th>
-                                                <th>email</th>
-                                                <th>Username</th>
-                                                <th>date</th>
-                                                <th>address</th>
-                                                <th>Phone </th>
+                                                <th>ID - Nom</th>
+                                                <th>Type</th>
+                                                <th>Race</th>
+                                                <th>Poids</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                           <?PHP
-                                              foreach($listeclient as $row){
+                                              foreach($listeA as $row){
                                           ?>
                                           <tr class="tr-shadow">
                                               <td>
@@ -376,17 +386,15 @@ if (isset($_SESSION['id']))
                                                       <span class="au-checkmark"></span>
                                                   </label>
                                               </td>
-                                             <form action="supprimerclient.php" method="Post">
-                                              <td> <?php echo $row['id']." - ". $row['prenom']." ".$row['nom']; ?></td>
+                                             <form action="#" method="Post">
+                                              <td> <?php echo $row['id']." - ".$row['nom']; ?></td>
                                               <td>
-                                                  <span class="block-email"><?php echo $row['email']?></span>
+                                                  <span class="block-email"><?php echo $row['type']?></span>
                                               </td>
-                                              <td class="desc"><?php echo $row['username']?></td>
-                                              <td><?php echo $row['date_crea']?></td>
+                                              <td class="desc"><?php echo $row['race']?></td>
                                               <td>
-                                                  <span class="status--process"><?php echo $row['adresse']?></span>
+                                                  <span class="status--process"><?php echo $row['idClient']?></span>
                                               </td>
-                                              <td><?php echo $row['tel']?></td>
                                               <td>
                                                   <input type="text" value="<?php echo $row['id'] ?>" hidden name="idsup">
                                                   <div class="table-data-feature nf">

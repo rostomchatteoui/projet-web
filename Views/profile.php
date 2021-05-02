@@ -1,11 +1,13 @@
 <?php
-session_start();
-include '../Controller/clientC.php';
-include '../Model/client.php';
+	session_start();
+	include '../Controller/clientC.php';
+	include '../Model/client.php';
 
-$CC = new clientC();
-$usernames = $CC->afficherUsernames();
+	$CC = new clientC();
+	$usernames = $CC->afficherUsernames();
 
+  if (isset($_SESSION['id']))
+  {
 ?>
 
 <!--
@@ -477,3 +479,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- //cart-js -->
 </body>
 </html>
+<?php
+} else {
+	echo "<script>
+	alert('Vous etes déconnecté');
+	window.location.href='index.php';
+	</script>";
+}
+ ?>

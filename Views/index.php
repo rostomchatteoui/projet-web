@@ -6,10 +6,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 
 <?php
-include '../Controller/clientC.php';
-session_start();
-$CC = new clientC();
-$usernames = $CC->afficherUsernames();
+  include '../Controller/clientC.php';
+  session_start();
+  $CC = new clientC();
+  $usernames = $CC->afficherUsernames();
  ?>
 
 <!DOCTYPE html>
