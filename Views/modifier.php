@@ -1,6 +1,7 @@
 <?php
-include '../Controller/clientC.php';
+include '../Controller/config.php';
 include '../Model/client.php';
+include '../Controller/clientC.php';
 
   $id=$_POST['id'];
   //récupération des valeurs des champs:
@@ -32,13 +33,5 @@ include '../Model/client.php';
   $_SESSION['password']=$password;
 
   header("Location:profile.php");
-  //affichage des résultats, pour savoir si la modification a marchée:
-  // if($requete)
-  // {
-  //   echo("La modification à été correctement effectuée") ;
-  // }
-  // else
-  // {
-  //   echo("La modification à échouée") ;
-  // }
+
 ?>

@@ -1,12 +1,5 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-
 <?php
-  include '../Controller/clientC.php';
+	include 'imports.php';
   session_start();
   $CC = new clientC();
   $usernames = $CC->afficherUsernames();
@@ -173,11 +166,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <?php } else
         {
         ?>
-            <a href='logout.php' style="width:150px;"><span class="glyphicon">Sign out <i class="glyphicon glyphicon-log-out" ></i></span></a>
+            <a href='logout.php' style="width:150px;"><span class="glyphicon">Se Déconnecter <i class="glyphicon glyphicon-log-out" ></i></span></a>
         <?php
             if($_SESSION['role'] == "admin"){
           ?>
-              <a href="back-end/table2.php" style="width:150px;"><span class="glyphicon">Dashboard Admin <i class="glyphicon glyphicon-tasks" ></i></span></a>
+              <a href="back-end/index.php" style="width:150px;"><span class="glyphicon">Dashboard Admin <i class="glyphicon glyphicon-tasks" ></i></span></a>
         <?php
             }
          ?>
@@ -199,13 +192,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</form>
 				</div>
 			</div>
-			<div class="cart cart box_1">
-				<form action="#" method="post" class="last">
-					<input type="hidden" name="cmd" value="_cart" />
-					<input type="hidden" name="display" value="1" />
-					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-				</form>
-			</div>
 		</div>
 	</div>
 	<!-- //header -->
@@ -224,66 +210,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 					<ul class="nav navbar-nav">
-						<li><a href="index.php" class="act">Home</a></li>
-						<!-- Mega Menu -->
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="col-sm-3">
-										<ul class="multi-column-dropdown">
-											<h6>Mobiles</h6>
-											<li><a href="products.html">Mobile Phones</a></li>
-											<li><a href="products.html">Mp3 Players <span>New</span></a></li>
-											<li><a href="products.html">Popular Models</a></li>
-											<li><a href="products.html">All Tablets<span>New</span></a></li>
-										</ul>
-									</div>
-									<div class="col-sm-3">
-										<ul class="multi-column-dropdown">
-											<h6>Accessories</h6>
-											<li><a href="products1.html">Laptop</a></li>
-											<li><a href="products1.html">Desktop</a></li>
-											<li><a href="products1.html">Wearables <span>New</span></a></li>
-											<li><a href="products1.html"><i>Summer Store</i></a></li>
-										</ul>
-									</div>
-									<div class="col-sm-2">
-										<ul class="multi-column-dropdown">
-											<h6>Home</h6>
-											<li><a href="products2.html">Tv</a></li>
-											<li><a href="products2.html">Camera</a></li>
-											<li><a href="products2.html">AC</a></li>
-											<li><a href="products2.html">Grinders</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-4">
-										<div class="w3ls_products_pos">
-											<h4>30%<i>Off/-</i></h4>
-											<img src="images/1.jpg" alt=" " class="img-responsive" />
-										</div>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</ul>
-						</li>
-						<li><a href="about.php">About Us</a></li>
-						<li class="w3pages"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="icons.php">Web Icons</a></li>
-								<li><a href="codes.php">Short Codes</a></li>
-							</ul>
-						</li>
-						<li><a href="mail.php">Mail Us</a></li>
-            <?php if (isset($_SESSION['id']))
-            {
-            ?>
-                <li><a href="profile.php">Profile</a></li>
-              <?php
-             }
-            ?>
+  					<ul class="nav navbar-nav">
+  						<li><a class="act" href="index.php">Accueil</a></li>
+              <?php if (isset($_SESSION['id']))
+              {
+              ?>
+                  <li><a href="profile.php">Mon profil</a></li>
+		  						<li><a href="animaux.php">Mes animaux</a></li>
+		  						<li><a href="ajouterAnimal.php">Ajouter Animal</a></li>
+                <?php
+               }
+              ?>
 					</ul>
-          </div>
+				</div>
 			</nav>
 		</div>
 	</div>

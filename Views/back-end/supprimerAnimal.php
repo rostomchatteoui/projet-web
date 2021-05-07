@@ -1,16 +1,16 @@
 <?PHP
 
 include '../../Controller/config.php';
-include '../../Controller/clientC.php';
-include '../../Model/client.php';
+include '../../Controller/animalC.php';
+include '../../Model/animal.php';
 
 // var_dump($_POST);
 if (isset($_POST['idsup'])) {
 	// echo "1";
 // echo "2";
-$clientC=new clientC();
-$clientC->supprimerclient($_POST['idsup']);
-header('location: table2.php' );
+$animalC=new animalC();
+$animalC->supprimerAnimal($_POST['idsup']);
+header('location: Animals.php' );
 // echo "3";
 
 

@@ -1,4 +1,5 @@
 <?PHP
+include '../Controller/config.php';
 include '../Controller/clientC.php';
 
 if (isset($_POST['username']) and isset($_POST['password'])) {

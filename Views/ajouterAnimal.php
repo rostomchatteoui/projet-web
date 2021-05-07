@@ -17,6 +17,7 @@
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <meta name="keywords" content="Electronic Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 	SmartPhone Compatible web template, free web designs for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
@@ -47,18 +48,6 @@
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
-</script>
-<script LANGUAGE="JavaScript">
-<!--
-function confirmSubmit()
-{
-var agree=confirm("Êtes-vous sûr de vouloir désactiver votre compte?");
-if (agree)
- return true ;
-else
- return false ;
-}
-// -->
 </script>
 <!-- //end-smooth-scrolling -->
 </head>
@@ -122,9 +111,9 @@ else
               <?php if (isset($_SESSION['id']))
               {
               ?>
-                  <li><a class="act" href="profile.php">Mon profil</a></li>
+                  <li><a href="profile.php">Mon profil</a></li>
 		  						<li><a href="animaux.php">Mes animaux</a></li>
-		  						<li><a href="ajouterAnimal.php">Ajouter Animal</a></li>
+		  						<li><a class="act" href="ajouterAnimal.php">Ajouter Animal</a></li>
                 <?php
                }
               ?>
@@ -137,7 +126,7 @@ else
 	<!-- banner -->
 	<div class="banner banner10">
 		<div class="container">
-			<h2 style="color: black;">Profile</h2>
+			<h2 style="color: black;">Ajouter Animal</h2>
 		</div>
 	</div>
 	<!-- //banner -->
@@ -145,70 +134,46 @@ else
 
 	<div class="typo codes">
 		<div class="container">
-			<h3 class="agileits-title">Profile</h3>
+			<h3 class="agileits-title">Ajouter Animal</h3>
 			<div class="grid_3 grid_4">
 				<div class="tab-content">
 					<div class="tab-pane active" id="horizontal-form">
-						<form class="form-horizontal" method="POST" action="modifier.php">
+						<form class="form-horizontal" method="POST" action="ajoutAnimal.php">
 							<div class="form-group">
 								<label for="focusedinput" class="col-sm-2 control-label">Nom</label>
 								<div class="col-sm-8">
-									<input type="text" hidden name="id" value="<?php echo $_SESSION['id']; ?>">
-									<input type="text" class="form-control1" name="nom" value="<?php echo $_SESSION['nom']; ?>">
+									<input type="text" hidden name="idClient" value="<?php echo $_SESSION['id']; ?>">
+									<input type="text" class="form-control1" name="nom">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="disabledinput" class="col-sm-2 control-label">Prenom</label>
+								<label for="inputPassword" class="col-sm-2 control-label">Type de l'animal</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="prenom" value="<?php echo $_SESSION['prenom']; ?>">
+									<select name="type" id="type">
+									    <option value="Chien">Chien</option>
+									    <option value="Chat">Chat</option>
+									    <option value="Autre">Autre</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">Username</label>
+								<label for="inputPassword" class="col-sm-2 control-label">Race</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="username" value="<?php echo $_SESSION['username']; ?>">
+									<input type="text" class="form-control1" name="race">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">Adresse</label>
+								<label for="inputPassword" class="col-sm-2 control-label">Poids en grammes</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="adresse" value="<?php echo $_SESSION['adresse']; ?>">
+									<input type="text" class="form-control1" name="poids">
 								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">Telephone</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="tel" value="<?php echo $_SESSION['tel']; ?>">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">E-mail</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="email" value="<?php echo $_SESSION['email']; ?>">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">Paswword</label>
-								<div class="col-sm-8">
-									<input type="password" class="form-control1" name="password" value="<?php echo $_SESSION['password']; ?>">
-								</div>
-							</div>
-							<div class="form-group modifier">
-								<input type="submit" value="modifier"/>
+								<input type="submit" value="Ajouter">
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		<form action="supprimerClient.php" method="Post">
-			<center>
-				<div class="supprimer">
-					<input type="text" value="<?php echo $_SESSION['id'] ?>" hidden name="idsup">
-					<input type="submit" value="Désactiver compte" onClick='return confirmSubmit()'>
-				</div>
-			</center>
-		</form>
 	</div>
 </form>
 

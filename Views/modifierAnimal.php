@@ -1,12 +1,15 @@
 <?php
 	include 'imports.php';
-	session_start();
 
-	$CC = new clientC();
-	$usernames = $CC->afficherUsernames();
-
-  if (isset($_SESSION['id']))
+  if (isset($_POST['id']))
   {
+
+		session_start();
+
+		$CC = new clientC();
+		$usernames = $CC->afficherUsernames();
+		$AC = new animalC();
+		$animal = $AC->afficherlAnimal($_POST['id']);
 ?>
 
 <!DOCTYPE html>
@@ -48,60 +51,9 @@
 		});
 	});
 </script>
-<script LANGUAGE="JavaScript">
-<!--
-function confirmSubmit()
-{
-var agree=confirm("Êtes-vous sûr de vouloir désactiver votre compte?");
-if (agree)
- return true ;
-else
- return false ;
-}
-// -->
-</script>
 <!-- //end-smooth-scrolling -->
 </head>
 <body>
-	<!-- header -->
-	<div class="header" id="home1">
-		<div class="container">
-			<div class="w3l_login">
-        <?php if(!isset($_SESSION['id'])){ ?>
-          <script>
-            $('#myModal88').modal('show');
-          </script>
-        <?php } else
-        {
-        ?>
-            <a href='logout.php' style="width:150px;"><span class="glyphicon">Se Déconnecter <i class="glyphicon glyphicon-log-out" ></i></span></a>
-        <?php
-            if($_SESSION['role'] == "admin"){
-          ?>
-              <a href="back-end/index.php" style="width:150px;"><span class="glyphicon">Dashboard Admin <i class="glyphicon glyphicon-tasks" ></i></span></a>
-        <?php
-            }
-         ?>
-         <?php
-         }
-        ?>
-      </div>
-			<div class="w3l_logo">
-				<h1><a href="index.html"><center><img src="images/hightech.png"></center><span>Your store. Your place.</span></a></h1>
-			</div>
-			<div class="search">
-				<input class="search_box" type="checkbox" id="search_box">
-				<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
-				<div class="search_form">
-					<form action="#" method="post">
-						<input type="text" name="Search" placeholder="Search...">
-						<input type="submit" value="Send">
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- //header -->
 	<!-- navigation -->
 	<div class="navigation">
 		<div class="container">
@@ -122,9 +74,9 @@ else
               <?php if (isset($_SESSION['id']))
               {
               ?>
-                  <li><a class="act" href="profile.php">Mon profil</a></li>
+                  <li><a href="profile.php">Mon profil</a></li>
 		  						<li><a href="animaux.php">Mes animaux</a></li>
-		  						<li><a href="ajouterAnimal.php">Ajouter Animal</a></li>
+		  						<li><a class="act" href="ajouterAnimal.php">Ajouter Animal</a></li>
                 <?php
                }
               ?>
@@ -137,7 +89,7 @@ else
 	<!-- banner -->
 	<div class="banner banner10">
 		<div class="container">
-			<h2 style="color: black;">Profile</h2>
+			<h2 style="color: black;">Modifier Animal</h2>
 		</div>
 	</div>
 	<!-- //banner -->
@@ -145,72 +97,63 @@ else
 
 	<div class="typo codes">
 		<div class="container">
-			<h3 class="agileits-title">Profile</h3>
+			<h3 class="agileits-title">Modifier Animal</h3>
 			<div class="grid_3 grid_4">
 				<div class="tab-content">
 					<div class="tab-pane active" id="horizontal-form">
-						<form class="form-horizontal" method="POST" action="modifier.php">
+						<?php foreach ($animal as $a): ?>
+						<form class="form-horizontal" method="POST" action="modificationAnimal.php">
 							<div class="form-group">
 								<label for="focusedinput" class="col-sm-2 control-label">Nom</label>
 								<div class="col-sm-8">
-									<input type="text" hidden name="id" value="<?php echo $_SESSION['id']; ?>">
-									<input type="text" class="form-control1" name="nom" value="<?php echo $_SESSION['nom']; ?>">
+									<input type="text" hidden name="idClient" value="<?php echo $_SESSION['id']; ?>">
+										<input type="text" hidden name="id" value="<?php echo $a['id']; ?>">
+									<input type="text" class="form-control1" name="nom" value="<?php echo $a['nom']; ?>">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="disabledinput" class="col-sm-2 control-label">Prenom</label>
+								<label for="inputPassword" class="col-sm-2 control-label">Type de l'animal</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="prenom" value="<?php echo $_SESSION['prenom']; ?>">
+									<select name="type" id="typeA">
+									    <option value="Chien">Chien</option>
+									    <option value="Chat">Chat</option>
+									    <option value="Autre">Autre</option>
+									</select>
+								</div>
+							</div>
+							<script type="text/javascript">
+								document.getElementById('typeA').value='<?php echo $a['type']; ?>';
+							</script>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">Race</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control1" name="race" value="<?php echo $a['race']; ?>">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">Username</label>
+								<label for="inputPassword" class="col-sm-2 control-label">Poids en grammes</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="username" value="<?php echo $_SESSION['username']; ?>">
+									<input type="text" class="form-control1" name="poids" value="<?php echo $a['poids']; ?>">
 								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">Adresse</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="adresse" value="<?php echo $_SESSION['adresse']; ?>">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">Telephone</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="tel" value="<?php echo $_SESSION['tel']; ?>">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">E-mail</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control1" name="email" value="<?php echo $_SESSION['email']; ?>">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">Paswword</label>
-								<div class="col-sm-8">
-									<input type="password" class="form-control1" name="password" value="<?php echo $_SESSION['password']; ?>">
-								</div>
-							</div>
-							<div class="form-group modifier">
-								<input type="submit" value="modifier"/>
+								<input type="submit" value="Modifier">
 							</div>
 						</form>
+						<?php $id = $a['id'] ;
+					endforeach; ?>
 					</div>
 				</div>
 			</div>
+			<form action="supprimerAnimal.php" method="Post">
+				<center>
+					<div class="supprimer">
+						<input type="text" value="<?php echo $id; ?>" hidden name="idsup">
+						<input type="submit" value="supprimer Animal" onClick='return confirmSubmit()'>
+					</div>
+				</center>
+			</form>
 		</div>
-		<form action="supprimerClient.php" method="Post">
-			<center>
-				<div class="supprimer">
-					<input type="text" value="<?php echo $_SESSION['id'] ?>" hidden name="idsup">
-					<input type="submit" value="Désactiver compte" onClick='return confirmSubmit()'>
-				</div>
-			</center>
-		</form>
 	</div>
-</form>
+
 
 	<!-- //short-codes -->
 	<!-- newsletter -->
@@ -316,7 +259,6 @@ else
 <?php
 } else {
 	echo "<script>
-	alert('Vous etes déconnecté');
 	window.location.href='index.php';
 	</script>";
 }

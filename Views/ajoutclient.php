@@ -1,6 +1,7 @@
 <?PHP
-include '../Controller/clientC.php';
+include '../Controller/config.php';
 include '../Model/client.php';
+include '../Controller/clientC.php';
 
 
 if (isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['email']) and isset($_POST['username']) and isset($_POST['adresse']) and isset($_POST['tel']) and isset($_POST['password']))
@@ -20,7 +21,7 @@ if (isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['email']) 
 	$client1=new client(null,$nom,$prenom,$email,$username,$adresse,$tel,$password,$d,"client");
 	$clientC=new clientC();
 	$clientC->ajouterclient($client1);
-	$user = $client1->checklogin($username,$password);
+	$user = $clientC->checklogin($username,$password);
 // if ($client1)
 // {
 // 		include "../Nexmo/src/NexmoMessage.php" ;

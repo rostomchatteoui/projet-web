@@ -1,6 +1,6 @@
 <?PHP
-
-class client{
+class animal{
+	
 	private $id;
 	private $nom;
 	private $poids;

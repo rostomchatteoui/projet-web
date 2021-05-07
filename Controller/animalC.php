@@ -1,6 +1,5 @@
 
  <?php
- include 'config.php';
 
  class animalC
  {
@@ -50,6 +49,51 @@
             die('Erreur: '.$e->getMessage());
         }
 	}
+  function afficherAutre($idClient)
+{
+  //$sql="SElECT * From client inner join formationphp.client a on e.id= a.id";
+  $sql="SELECT * From animal where type= 'Autre' and idClient =".$idClient;
+  $db = config::getConnexion();
+  try
+  {
+  $liste=$db->query($sql);
+  return $liste;
+  }
+      catch (Exception $e)
+      {
+          die('Erreur: '.$e->getMessage());
+      }
+}
+function afficherChien($idClient)
+{
+//$sql="SElECT * From client inner join formationphp.client a on e.id= a.id";
+$sql="SELECT * From animal where type= 'Chien' and idClient =".$idClient;
+$db = config::getConnexion();
+try
+{
+$liste=$db->query($sql);
+return $liste;
+}
+    catch (Exception $e)
+    {
+        die('Erreur: '.$e->getMessage());
+    }
+}
+function afficherChat($idClient)
+{
+//$sql="SElECT * From client inner join formationphp.client a on e.id= a.id";
+$sql="SELECT * From animal where type= 'Chat' and idClient =".$idClient;
+$db = config::getConnexion();
+try
+{
+$liste=$db->query($sql);
+return $liste;
+}
+    catch (Exception $e)
+    {
+        die('Erreur: '.$e->getMessage());
+    }
+}
 
   function afficherAnimauxClient($idClient)
 {
@@ -65,6 +109,22 @@
       {
           die('Erreur: '.$e->getMessage());
       }
+}
+
+function afficherlAnimal($id)
+{
+//$sql="SElECT * From client inner join formationphp.client a on e.id= a.id";
+$sql="SELECT * From animal where id =".$id;
+$db = config::getConnexion();
+try
+{
+$liste=$db->query($sql);
+return $liste;
+}
+    catch (Exception $e)
+    {
+        die('Erreur: '.$e->getMessage());
+    }
 }
 
   function supprimerAnimal($id)
@@ -133,6 +193,19 @@ function modifierAnimal($id,$nom, $type, $race, $poids, $idClient)
             die('Erreur: '.$e->getMessage());
         }
     }
+
+
+    function getNbAnimaux($idClient){
+  		$sql="SELECT COUNT(*) AS NbAnimaux FROM Animal where idClient = ".$idClient;
+  		$db = config::getConnexion();
+  		try{
+  		$NbAnimaux=$db->query($sql);
+  		return $NbAnimaux;
+  		}
+          catch (Exception $e){
+              die('Erreur: '.$e->getMessage());
+          }
+      }
 
 }
 ?>

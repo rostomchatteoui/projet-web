@@ -1,9 +1,9 @@
 <?php
 
-include '../../Controller/clientC.php';
-include '../../Model/client.php';
+include 'imports.php';
 
-$client1C=new clientC();
+$client1C = new clientC();
+$animalC = new animalC();
 
 if (isset($_POST['Asc'])){
   $listeclient=$client1C->trierA();
@@ -21,10 +21,14 @@ else {
 }
 session_start();
 
-
 if (isset($_SESSION['id']))
 {
-?>
+  $NbA = $animalC->getNbAnimaux($_SESSION['id']);
+  $Animaux = $animalC->afficherAnimauxClient($_SESSION['id']);
+  foreach ($NbA as $nb) {
+    $NbAnimaux=$nb['NbAnimaux'];
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -99,17 +103,17 @@ if (isset($_SESSION['id']))
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
-                            <a href="table2.php">
+                            <a href="index.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                        <li>
-                            <a href="table2.php">
-                                <i class="fas fa-table"></i>Liste des utilisateurs</a>
-                        </li>
-                    <li>
-                        <a href="Animals.php">
-                            <i class="fas fa-table"></i>Liste des animaux</a>
-                    </li>
+                            <li class="active">
+                                    <a href="Clients.php">
+                                    <i class="fas fa-users"></i>Liste des utilisateurs</a>
+                            </li>
+                            <li>
+                                  <a href="Animals.php">
+                                  <i class="fas fa-paw"></i>Liste des animaux</a>
+                            </li>
 
                     </ul>
                 </div>
@@ -128,19 +132,17 @@ if (isset($_SESSION['id']))
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li class="has-sub">
-                            <a href="table2.php">
+                            <a href="index.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-
                         </li>
                         <li class="active">
-                            <a href="table2.php">
-                                <i class="fas fa-table"></i>Liste des utilisateurs</a>
+                            <a href="Clients.php">
+                                <i class="fas fa-users"></i>Liste des utilisateurs</a>
                         </li>
                         <li>
                             <a href="Animals.php">
-                                <i class="fas fa-table"></i>Liste des animaux</a>
+                                <i class="fas fa-paw"></i>Liste des animaux</a>
                         </li>
-
                     </ul>
                 </nav>
             </div>
@@ -163,113 +165,27 @@ if (isset($_SESSION['id']))
                             <div class="header-button">
                                 <div class="noti-wrap">
                                     <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-comment-more"></i>
-                                        <span class="quantity">1</span>
+                                        <i class="fa fa-paw"></i>
+                                       <span class="quantity"><?php echo $NbAnimaux; ?></span>
                                         <div class="mess-dropdown js-dropdown">
                                             <div class="mess__title">
-                                                <p>You have 2 news message</p>
+                                                <?php if ( $NbAnimaux >= 2){ ?><p>Vous avez <?php echo $NbAnimaux; ?> animaux</p> <?php }
+                                                elseif ( $NbAnimaux == 0){ ?><p>Vous n'avez pas d'animaux</p> <?php }
+                                                elseif ( $NbAnimaux == 1){ ?><p>Vous avez un animal</p> <?php }
+                                                else{?><p>Bravo vous avez trouvé une faille contactez l'admin</p> <?php } ?>
+
                                             </div>
-                                            <div class="mess__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
-                                                </div>
-                                              <div class="content">
-                                                    <h6>mohamed jbali</h6>
-                                                    <p>Have sent a photo</p>
-                                                    <span class="time">3 min ago</span>
-                                                </div>
-                                            </div>
-                                            <div class="mess__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
-                                                </div>
-                                                 <div class="content">
-                                                    <h6>anwer mosbah</h6>
-                                                    <p>You are now connected on message</p>
-                                                    <span class="time">Yesterday</span>
-                                                </div>
-                                            </div>
-                                            <div class="mess__footer">
-                                                <a href="#">View all messages</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-email"></i>
-                                        <span class="quantity">1</span>
-                                        <div class="email-dropdown js-dropdown">
-                                            <div class="email__title">
-                                                <p>You have 3 New Emails</p>
-                                            </div>
-                                            <div class="email__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
-                                                </div>
-                                                <div class="content">
-                                                    <p> reclamation number 111 </p>
-                                                    <span>mourouj 1 , 3 min ago</span>
-                                                </div>
-                                            </div>
-                                            <div class="email__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
-                                                </div>
-                                                <div class="content">
-                                                    <p>reclamation number 127</p>
-                                                    <span>ariana , Yesterday</span>
-                                                </div>
-                                            </div>
-                                            <div class="email__item">
-                                                <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
-                                                </div>
-                                                <div class="content">
-                                                    <p>reclamation number 124</p>
-                                                    <span>el kram, April 12,,2018</span>
-                                                </div>
-                                            </div>
-                                            <div class="email__footer">
-                                                <a href="#">See all emails</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-notifications"></i>
-                                        <span class="quantity">3</span>
-                                        <div class="notifi-dropdown js-dropdown">
-                                            <div class="notifi__title">
-                                                <p>You have 3 Notifications</p>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c1 img-cir img-40">
-                                                    <i class="zmdi zmdi-email-open"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>You got a email notification</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c2 img-cir img-40">
-                                                    <i class="zmdi zmdi-account-box"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>client  account  has been blocked</p>
-                                                    <span class="date">november 4, 2019 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__item">
-                                                <div class="bg-c3 img-cir img-40">
-                                                    <i class="zmdi zmdi-file-text"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>You got a new file</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-                                            <div class="notifi__footer">
-                                                <a href="#">All notifications</a>
-                                            </div>
+                                            <?php foreach ($Animaux as $a) { ?>
+                                              <div class="mess__item">
+                                                  <div class="image img img-40">
+                                                    <img src="images/icon/<?php echo $a['type']; ?>.png" alt="Michelle Moreno" />
+                                                  </div>
+                                                  <div class="content">
+                                                      <h6><?php echo $a['nom']; ?></h6>
+                                                      <p><?php echo $a['type']; ?> | <?php echo $a['race']; ?></p>
+                                                  </div>
+                                              </div>
+                                              <?php } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -297,20 +213,21 @@ if (isset($_SESSION['id']))
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                    <a href="../profile.php">
+                                                        <i class="zmdi zmdi-account"></i>Profile</a>
                                                 </div>
                                                 <div class="account-dropdown__item">
                                                     <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
+                                                        <i class="zmdi zmdi-settings"></i>Options</a>
                                                 </div>
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                                    <a href="../index.php">
+                                                        <i class="zmdi zmdi-laptop-chromebook"></i>Voir le site en tant que Client</a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href='../logout.php'><span class="glyphicon">Sign out <i class="glyphicon glyphicon-log-out" ></i></span></a>
+                                                <a href='../logout.php'>
+                                                  <i class="fas fa-sign-out-alt"></i>Sign out</a>
                                             </div>
                                         </div>
                                     </div>
@@ -376,7 +293,7 @@ if (isset($_SESSION['id']))
                                                       <span class="au-checkmark"></span>
                                                   </label>
                                               </td>
-                                             <form action="supprimerclient.php" method="Post">
+                                             <form action="supprimerClient.php" method="Post">
                                               <td> <?php echo $row['id']." - ". $row['prenom']." ".$row['nom']; ?></td>
                                               <td>
                                                   <span class="block-email"><?php echo $row['email']?></span>
@@ -391,8 +308,6 @@ if (isset($_SESSION['id']))
                                                   <input type="text" value="<?php echo $row['id'] ?>" hidden name="idsup">
                                                   <div class="table-data-feature nf">
                                                       <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">Delete</button>
-
-
                                                   </div>
                                                   </form>
                                               </td>
@@ -401,22 +316,18 @@ if (isset($_SESSION['id']))
                                       <?php  }?>
                                   </table>
                               </div>
-                              <!-- END DATA TABLE -->
-                            </div>
-                        </div>
-                        <div class="row nf">
-                            <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2021 IDEART. All rights reserved. .</p>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+    <footer>
+      <div class="copyright">
+          <p>Copyright © 2021 IDEART. All rights reserved. .</p>
+      </div>
+    </footer>
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
@@ -441,7 +352,6 @@ if (isset($_SESSION['id']))
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
-
 </body>
 
 </html>
